@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Princess 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;600;700;800&family=Sacramento&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rose:    #f4436c;
+  --pink:    #ff7fa8;
+  --blush:   #ffb3cb;
+  --petal:   #ffe0eb;
+  --cream:   #fff8fa;
+  --lilac:   #e8b4cb;
+  --text:    #6b2d45;
+  --soft:    rgba(255,255,255,.6);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ height:100%; }
+body{
+  font-family:'Quicksand',sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ctext y='20' font-size='20'%3E🌸%3C/text%3E%3C/svg%3E") 12 12, auto;
+  overflow:hidden;
+  height:100%;
+}
+body.unlocked{
+  overflow-y:auto;
+  overflow-x:hidden;
+  height:auto;
+}
+
+#sparkleCanvas{
+  position:fixed; inset:0;
+  pointer-events:none; z-index:99997;
+}
+
+/* ═══ YOUTUBE HIDDEN PLAYER ═══ */
+#ytPlayer{
+  position:fixed;
+  width:1px; height:1px;
+  top:-9999px; left:-9999px;
+  pointer-events:none;
+  opacity:0;
+}
+
+/* ═══ INTRO ═══ */
+#intro{
+  position:fixed; inset:0; z-index:99999;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  transition:opacity 1.4s ease, transform 1.4s cubic-bezier(.4,0,.2,1);
+}
+#intro::before{
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 90% 70% at 10% 5%, #ffc2d8 0%, transparent 55%),
+    radial-gradient(ellipse 70% 60% at 90% 15%, #ffa8c8 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, #ffb8d4 0%, transparent 55%),
+    radial-gradient(ellipse 50% 50% at 80% 60%, #ff94bc 0%, transparent 50%),
+    linear-gradient(155deg, #ffdde8 0%, #ffc4d8 35%, #ffaac8 65%, #ff94bc 100%);
+}
+#intro::after{
+  content:'';
+  position:absolute; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  opacity:.5; pointer-events:none;
+}
+.arc{ position:absolute; border-radius:50%; border:2px solid rgba(255,255,255,.25); pointer-events:none; }
+.arc1{ width:600px;height:600px;top:-200px;left:-200px; animation:spin 30s linear infinite; }
+.arc2{ width:400px;height:400px;bottom:-100px;right:-100px; animation:spin 22s linear infinite reverse; }
+.arc3{ width:260px;height:260px;top:50%;left:10%;transform:translateY(-50%); animation:spin 18s linear infinite; border-style:dashed; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.dot{ position:absolute; border-radius:50%; background:rgba(255,255,255,.35); pointer-events:none; animation:dotFloat ease-in-out infinite; }
+.d1{ width:12px;height:12px;top:15%;left:20%;animation-duration:6s; }
+.d2{ width:8px;height:8px;top:30%;right:25%;animation-duration:8s;animation-delay:1s; }
+.d3{ width:16px;height:16px;bottom:25%;left:15%;animation-duration:7s;animation-delay:2s; }
+.d4{ width:10px;height:10px;bottom:35%;right:18%;animation-duration:9s;animation-delay:.5s; }
+.d5{ width:6px;height:6px;top:60%;left:50%;animation-duration:5s;animation-delay:3s; }
+@keyframes dotFloat{ 0%,100%{ transform:translateY(0) scale(1); opacity:.6; } 50%{ transform:translateY(-20px) scale(1.3); opacity:1; } }
+
+.intro-card{
+  position:relative; z-index:2;
+  text-align:center;
+  padding:54px 48px 48px;
+  max-width:420px; width:90%;
+  background:rgba(255,255,255,.2);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1.5px solid rgba(255,255,255,.5);
+  border-radius:36px;
+  box-shadow: 0 32px 80px rgba(244,67,108,.2), 0 0 0 1px rgba(255,255,255,.3) inset;
+  animation:cardPop .9s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes cardPop{ from{ opacity:0; transform:scale(.75) translateY(24px); } to{ opacity:1; transform:scale(1) translateY(0); } }
+.ribbon-strip{ position:absolute; top:0; left:0; right:0; height:6px; border-radius:36px 36px 0 0; background:linear-gradient(90deg,#ff6b9d,#ff94bc,#ffb3cb,#ff94bc,#ff6b9d); background-size:200% 100%; animation:ribbonSlide 3s linear infinite; }
+@keyframes ribbonSlide{ to{ background-position:200% 0; } }
+.intro-icon{ font-size:72px; display:block; margin-bottom:12px; filter:drop-shadow(0 8px 24px rgba(244,67,108,.35)); animation:iconWobble 3s ease-in-out infinite; }
+@keyframes iconWobble{ 0%,100%{ transform:rotate(-5deg) scale(1); } 50%{ transform:rotate(5deg) scale(1.1); } }
+.intro-card h1{ font-family:'Sacramento',cursive; font-size:clamp(3rem,10vw,4.2rem); color:#fff; text-shadow:0 2px 0 rgba(244,67,108,.4),0 0 40px rgba(255,180,210,.8),0 0 80px rgba(255,140,180,.4); line-height:1.1; margin-bottom:8px; }
+.intro-tagline{ font-size:.95rem; color:rgba(255,255,255,.9); font-weight:600; letter-spacing:.04em; margin-bottom:32px; text-shadow:0 2px 8px rgba(244,67,108,.3); }
+.sparkle-row{ display:flex; justify-content:center; gap:6px; margin-bottom:28px; font-size:20px; animation:sparkleRow 1.5s ease-in-out infinite alternate; }
+@keyframes sparkleRow{ from{ opacity:.7; transform:scale(.96); } to{ opacity:1; transform:scale(1.04); } }
+.enter-btn{ position:relative; display:inline-flex; align-items:center; gap:10px; padding:17px 46px; border:none; border-radius:999px; background:linear-gradient(135deg,#fff,rgba(255,255,255,.85)); color:var(--rose); font-family:'Quicksand',sans-serif; font-size:1rem; font-weight:800; letter-spacing:.04em; cursor:pointer; box-shadow:0 6px 28px rgba(244,67,108,.3),0 2px 0 rgba(255,180,210,.5) inset; transition:transform .25s, box-shadow .25s; animation:btnGlow 2.5s ease-in-out infinite; overflow:hidden; }
+.enter-btn::before{ content:''; position:absolute; inset:0; background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.4) 60%,transparent 80%); transform:translateX(-100%); animation:btnShimmer 3s ease infinite; }
+@keyframes btnShimmer{ 60%,100%{ transform:translateX(150%); } }
+@keyframes btnGlow{ 0%,100%{ box-shadow:0 6px 28px rgba(244,67,108,.3); } 50%{ box-shadow:0 6px 40px rgba(244,67,108,.5),0 0 60px rgba(255,160,200,.3); } }
+.enter-btn:hover{ transform:scale(1.07) translateY(-2px); }
+.i-float{ position:absolute; pointer-events:none; z-index:1; animation:iFloat linear forwards; }
+@keyframes iFloat{ 0%{ opacity:0; transform:translateY(0) scale(.8); } 10%{ opacity:.9; } 100%{ opacity:0; transform:translateY(-90px) scale(1.2); } }
+
+/* ═══ PAGE BG ═══ */
+.page-bg{ position:fixed; inset:0; z-index:-2; background:radial-gradient(ellipse 70% 50% at 10% 10%,#ffd6e7 0%,transparent 55%),radial-gradient(ellipse 60% 60% at 90% 80%,#ffc8dc 0%,transparent 55%),linear-gradient(170deg,#fff8fa 0%,#ffeff5 50%,#ffe4ee 100%); }
+.page-blob{ position:fixed; border-radius:50%; filter:blur(90px); z-index:-1; pointer-events:none; mix-blend-mode:multiply; animation:dotFloat ease-in-out infinite; }
+.pb1{ width:400px;height:400px;background:#ffb3cb;opacity:.3;top:-100px;left:-100px;animation-duration:11s; }
+.pb2{ width:300px;height:300px;background:#ffccd9;opacity:.25;right:-80px;top:30%;animation-duration:14s;animation-delay:3s; }
+.pb3{ width:350px;height:350px;background:#ffd6e4;opacity:.2;bottom:-80px;left:20%;animation-duration:9s;animation-delay:5s; }
+.hearts-layer{ position:fixed;inset:0;pointer-events:none;z-index:2;overflow:hidden; }
+.fheart{ position:absolute; animation:fhFloat linear forwards; pointer-events:none; }
+@keyframes fhFloat{ 0%{ transform:translateY(100vh) rotate(-10deg); opacity:0; } 8%{ opacity:.8; } 100%{ transform:translateY(-120vh) rotate(15deg); opacity:0; } }
+
+/* ── music btn ── */
+#musicBtn{
+  position:fixed; bottom:20px; right:20px;
+  width:54px; height:54px;
+  border:1.5px solid rgba(255,180,210,.6);
+  border-radius:50%;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(14px);
+  font-size:20px; z-index:9999; cursor:pointer;
+  box-shadow:0 4px 18px rgba(244,67,108,.25);
+  display:none; align-items:center; justify-content:center;
+  transition:transform .25s;
+  flex-direction:column;
+  gap:0;
+}
+#musicBtn:hover{ transform:scale(1.15) rotate(12deg); }
+#musicBtn.show{ display:flex; }
+.note{ display:inline-block; font-size:22px; line-height:1; }
+.music-label{ font-size:7px; font-weight:800; color:var(--rose); letter-spacing:.05em; margin-top:1px; }
+
+/* ═══ HERO ═══ */
+.hero{ min-height:100vh; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px 48px; position:relative; }
+.hero-chip{ display:inline-flex; align-items:center; gap:6px; padding:7px 18px; border-radius:999px; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border:1.5px solid rgba(255,180,210,.5); font-size:.78rem; font-weight:800; color:var(--rose); letter-spacing:.08em; margin-bottom:20px; animation:fadeUp .8s ease both; box-shadow:0 4px 14px rgba(244,67,108,.12); }
+.hero-date{ display:inline-block; padding:5px 16px; border-radius:999px; background:linear-gradient(135deg,#f4436c,#ff7fa8); color:#fff; font-size:.78rem; font-weight:800; letter-spacing:.1em; margin-bottom:24px; box-shadow:0 4px 18px rgba(244,67,108,.35); animation:fadeUp .85s ease .05s both; }
+.hero-emoji{ font-size:58px; display:block; margin-bottom:16px; animation:emojiPop 2.5s ease-in-out infinite, fadeUp .7s ease both; filter:drop-shadow(0 6px 18px rgba(244,67,108,.3)); }
+@keyframes emojiPop{ 0%,100%{ transform:scale(1) translateY(0); } 50%{ transform:scale(1.1) translateY(-10px); } }
+.hero h1{ font-family:'Sacramento',cursive; font-size:clamp(3.4rem,12vw,7rem); color:var(--rose); line-height:1.05; text-shadow:0 2px 0 rgba(244,67,108,.15),0 0 50px rgba(255,160,200,.5); margin-bottom:14px; animation:fadeUp .9s ease .1s both; }
+.hero-sub{ font-size:clamp(1rem,3vw,1.15rem); color:var(--pink); font-weight:600; line-height:1.8; margin-bottom:38px; animation:fadeUp .9s ease .15s both; }
+
+#giftBtn{ display:inline-flex; align-items:center; gap:10px; padding:18px 50px; border-radius:999px; border:none; background:linear-gradient(135deg,#f4436c 0%,#ff5e8a 50%,#ff7fa8 100%); background-size:200% 200%; color:#fff; font-family:'Quicksand',sans-serif; font-size:1.05rem; font-weight:800; letter-spacing:.04em; cursor:pointer; box-shadow:0 10px 32px rgba(244,67,108,.4),0 2px 0 rgba(255,255,255,.15) inset; animation:fadeUp .9s ease .3s both, giftPulse 2.8s ease-in-out 2s infinite; transition:transform .25s, box-shadow .25s; position:relative; overflow:hidden; }
+#giftBtn::after{ content:''; position:absolute; inset:0; background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.25) 60%,transparent 80%); transform:translateX(-100%); animation:btnShimmer 3.5s ease 2s infinite; }
+#giftBtn:hover{ transform:scale(1.06) translateY(-3px); box-shadow:0 16px 44px rgba(244,67,108,.5); }
+@keyframes giftPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.04); } }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
+
+/* ═══ LOVE LETTER ═══ */
+.section-wrap{ width:100%; max-width:680px; padding:0 20px 80px; display:flex; flex-direction:column; align-items:center; }
+.section-title{ font-family:'Sacramento',cursive; font-size:clamp(2.2rem,8vw,3.2rem); color:var(--rose); text-align:center; margin-bottom:28px; text-shadow:0 0 30px rgba(244,67,108,.25); }
+.love-card{ width:100%; padding:42px 40px; border-radius:36px; background:rgba(255,255,255,.82); backdrop-filter:blur(24px); border:1.5px solid rgba(255,200,220,.6); box-shadow:0 24px 70px rgba(244,67,108,.12),0 0 0 1px rgba(255,255,255,.85) inset; position:relative; overflow:hidden; }
+.love-card::before{ content:'🌸'; position:absolute; top:14px;left:16px; font-size:24px; opacity:.25; }
+.love-card::after{ content:'🌸'; position:absolute; bottom:14px;right:16px; font-size:24px; opacity:.25; transform:rotate(180deg); }
+.love-card .stripe{ position:absolute; top:0; right:0; width:120px; height:120px; background:linear-gradient(135deg,transparent 50%,rgba(255,180,210,.12) 50%); border-radius:0 36px 0 0; }
+.love-opener{ font-family:'Lora',serif; font-style:italic; font-size:1.25rem; color:var(--pink); margin-bottom:22px; }
+#letterBody{ font-size:1rem; line-height:1.9; color:var(--text); font-weight:600; font-family:'Quicksand',sans-serif; }
+#letterBody p{ margin-bottom:14px; }
+#letterBody p:last-child{ margin-bottom:0; }
+.cursor-blink{ display:inline-block; width:2px; height:1em; background:var(--rose); margin-left:2px; vertical-align:text-bottom; animation:blink .7s step-end infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* ═══ GALLERY ═══ */
+.gallery-section{ width:100%; padding:0 0 100px; }
+.gallery-title{ font-family:'Sacramento',cursive; font-size:clamp(2rem,7vw,3rem); color:var(--rose); text-align:center; margin-bottom:36px; padding:0 20px; text-shadow:0 0 30px rgba(244,67,108,.25); }
+.gallery-scroll{ display:flex; gap:20px; overflow-x:auto; padding:16px 28px 40px; scrollbar-width:thin; scrollbar-color: rgba(244,67,108,.3) transparent; -webkit-overflow-scrolling:touch; scroll-snap-type:x mandatory; cursor:grab; }
+.gallery-scroll:active{ cursor:grabbing; }
+.gallery-scroll::-webkit-scrollbar{ height:5px; }
+.gallery-scroll::-webkit-scrollbar-track{ background:rgba(255,200,220,.2); border-radius:10px; }
+.gallery-scroll::-webkit-scrollbar-thumb{ background:rgba(244,67,108,.3); border-radius:10px; }
+.scroll-hint{ text-align:center; font-size:.78rem; font-weight:700; color:var(--blush); letter-spacing:.06em; margin-bottom:10px; padding:0 20px; animation: hintPulse 2s ease-in-out infinite; }
+@keyframes hintPulse{ 0%,100%{opacity:.6;} 50%{opacity:1;} }
+.polaroid{ flex-shrink:0; width:220px; background:#fff; padding:12px 12px 48px; border-radius:4px; box-shadow:0 14px 40px rgba(244,67,108,.15),0 4px 12px rgba(0,0,0,.07),0 0 0 1px rgba(0,0,0,.04); transform:translateY(60px) rotate(var(--r,-2.5deg)); opacity:0; transition:transform .8s cubic-bezier(.34,1.4,.64,1), opacity .7s ease, box-shadow .25s; scroll-snap-align:start; position:relative; }
+.polaroid:hover{ box-shadow:0 20px 60px rgba(244,67,108,.25); transform:translateY(-4px) rotate(0deg) scale(1.03) !important; }
+.polaroid:nth-child(1){ --r:-3deg; }
+.polaroid:nth-child(2){ --r:2.5deg; }
+.polaroid:nth-child(3){ --r:-1.5deg; }
+.polaroid:nth-child(4){ --r:3.5deg; }
+.polaroid:nth-child(5){ --r:-2deg; }
+.polaroid.show{ transform:translateY(0) rotate(var(--r,-2.5deg)); opacity:1; }
+.polaroid img{ width:100%; height:220px; object-fit:contain; object-position:center; display:block; border-radius:2px; background:#fdf0f5; }
+.polaroid .caption{ position:absolute; bottom:10px; left:0; right:0; font-family:'Sacramento',cursive; font-size:1.3rem; color:var(--pink); text-align:center; padding:0 8px; }
+
+/* ═══ WISHES ═══ */
+.wishes-section{ width:100%; max-width:680px; padding:0 20px 100px; display:flex; flex-direction:column; align-items:center; }
+.wish-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; width:100%; }
+.wish-card{ padding:24px 20px; border-radius:28px; background:rgba(255,255,255,.68); backdrop-filter:blur(14px); border:1.5px solid rgba(255,200,220,.5); box-shadow:0 8px 28px rgba(244,67,108,.1); text-align:center; transform:translateY(30px); opacity:0; transition:transform .7s cubic-bezier(.34,1.4,.64,1), opacity .6s ease; }
+.wish-card.show{ transform:translateY(0); opacity:1; }
+.wish-card .wish-icon{ font-size:32px; margin-bottom:10px; display:block; }
+.wish-card p{ font-size:.88rem; font-weight:600; color:var(--text); line-height:1.7; }
+footer{ padding:30px 20px 60px; text-align:center; font-family:'Lora',serif; font-style:italic; font-size:.95rem; color:var(--blush); }
+@keyframes fall{ to{ transform:translateY(110vh) rotate(720deg); opacity:0; } }
+
+@media(max-width:580px){
+  .love-card{ padding:28px 22px; }
+  .polaroid{ width:180px; }
+  .polaroid img{ height:190px; }
+  #giftBtn{ padding:16px 38px; font-size:.95rem; }
+  .wish-grid{ grid-template-columns:1fr; }
+  .intro-card{ padding:42px 28px 40px; }
+  #letterBody{ font-size:.95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- YouTube hidden iframe player -->
+<div id="ytPlayer"></div>
+
+<canvas id="sparkleCanvas"></canvas>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="arc arc1"></div>
+  <div class="arc arc2"></div>
+  <div class="arc arc3"></div>
+  <div class="dot d1"></div><div class="dot d2"></div>
+  <div class="dot d3"></div><div class="dot d4"></div><div class="dot d5"></div>
+  <div class="intro-card">
+    <div class="ribbon-strip"></div>
+    <span class="intro-icon">🎀</span>
+    <h1>Happy Birthday<br>Princess</h1>
+    <p class="intro-tagline">ada kejutan spesial buat kamu ✨</p>
+    <div class="sparkle-row">🌸 ✨ 💖 ✨ 🌸</div>
+    <button class="enter-btn" id="enterBtn">💌 Open Your Surprise</button>
+  </div>
+</div>
+
+<!-- PAGE CONTENT -->
+<div id="pageContent" style="display:none; flex-direction:column; align-items:center;">
+  <div class="page-bg"></div>
+  <div class="page-blob pb1"></div>
+  <div class="page-blob pb2"></div>
+  <div class="page-blob pb3"></div>
+  <div class="hearts-layer" id="heartsLayer"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-chip">🎂 Special Day 🎂</div>
+    <div class="hero-date">✨ 17 MEI · HAPPY 17th ✨</div>
+    <span class="hero-emoji">🐱💕🐱</span>
+    <h1>Selamat Ulang<br>Tahun, cantiik</h1>
+    <p class="hero-sub">
+      Hari ini dunia makin indah<br>karena kamu lahir hehe 🌸
+    </p>
+    <button id="giftBtn">🎁 Open Your Gift 🎁</button>
+  </section>
+
+  <!-- LOVE LETTER -->
+  <div class="section-wrap" id="loveSection" style="display:none">
+    <p class="section-title">💌 Surat Buat Kamu</p>
+    <div class="love-card">
+      <div class="stripe"></div>
+      <p class="love-opener"> Hallo adee...</p>
+      <div id="letterBody"></div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery-section" id="gallerySection" style="display:none">
+    <p class="gallery-title">Our Cute Memories 📸</p>
+    <p class="scroll-hint">← geser untuk lihat foto →</p>
+    <div class="gallery-scroll" id="galleryScroll">
+      <div class="polaroid">
+        <img src="https://cdn.filn.pp.ua/uploads/betabotzapi/e5874.jpg" alt="memory 1" loading="lazy">
+        <p class="caption">my fav person 💕</p>
+      </div>
+      <div class="polaroid">
+        <img src="https://cdn.filn.pp.ua/uploads/betabotzapi/3d6c4.jpg" alt="memory 2" loading="lazy">
+        <p class="caption">cute moments ✨</p>
+      </div>
+      <div class="polaroid">
+        <img src="https://cdn.filn.pp.ua/uploads/betabotzapi/28d3a.jpg" alt="memory 3" loading="lazy">
+        <p class="caption">always together 🫶</p>
+      </div>
+      <div class="polaroid">
+        <img src="https://cdn.filn.pp.ua/uploads/betabotzapi/e5874.jpg" alt="memory 4" loading="lazy">
+        <p class="caption">princess energy 🎀</p>
+      </div>
+      <div class="polaroid">
+        <img src="https://cdn.filn.pp.ua/uploads/betabotzapi/5317d.jpg" alt="memory 5" loading="lazy">
+        <p class="caption">love you loads 💖</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WISHES -->
+  <div class="wishes-section" id="wishesSection" style="display:none">
+    <p class="section-title">🌸 Doa & Harapan</p>
+    <div class="wish-grid">
+      <div class="wish-card"><span class="wish-icon">💫</span><p>Semoga semua impian kamu jadi nyata satu per satu</p></div>
+      <div class="wish-card"><span class="wish-icon">🌸</span><p>Semoga kamu selalu sehat, bahagia, dan terjaga</p></div>
+      <div class="wish-card"><span class="wish-icon">✨</span><p>Makin cantik, makin cerdas, makin bersinar setiap harinya</p></div>
+      <div class="wish-card"><span class="wish-icon">💗</span><p>Semua hal baik di dunia ini layak buat kamu dapatkan</p></div>
+    </div>
+  </div>
+
+  <footer>Made with all my love, just for you 💕</footer>
+</div>
+
+<!-- MUSIC BUTTON -->
+<button id="musicBtn" aria-label="Toggle music">
+  <span class="note">🎵</span>
+  <span class="music-label">Sempurna</span>
+</button>
+
+<!-- YouTube IFrame API -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+/* ══ SPARKLE CANVAS ══ */
+const canvas = document.getElementById('sparkleCanvas');
+const ctx    = canvas.getContext('2d');
+let W, H, sparks = [];
+
+function resizeCanvas(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Spark{
+  constructor(x, y){
+    this.x = x ?? Math.random()*W;
+    this.y = y ?? Math.random()*H;
+    this.vx = (Math.random()-.5)*1.4;
+    this.vy = (Math.random()-.5)*1.4 - .6;
+    this.life  = 1;
+    this.decay = Math.random()*.014 + .007;
+    this.size  = Math.random()*3.5 + 1.5;
+    const c = ['#f4436c','#ff7fa8','#ffb3cb','#ffe0eb','#fff'];
+    this.color = c[Math.floor(Math.random()*c.length)];
+  }
+  draw(){
+    ctx.save();
+    ctx.globalAlpha = this.life*.8;
+    ctx.fillStyle   = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur  = 12;
+    ctx.beginPath();
+    const r1=this.size, r2=this.size*.4, pts=5;
+    for(let i=0;i<pts*2;i++){
+      const ang = (i*Math.PI/pts) - Math.PI/2;
+      const r   = i%2===0 ? r1 : r2;
+      i===0
+        ? ctx.moveTo(this.x+r*Math.cos(ang), this.y+r*Math.sin(ang))
+        : ctx.lineTo(this.x+r*Math.cos(ang), this.y+r*Math.sin(ang));
+    }
+    ctx.closePath(); ctx.fill(); ctx.restore();
+    this.x += this.vx; this.y += this.vy;
+    this.life -= this.decay;
+  }
+}
+
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  sparks = sparks.filter(s=>s.life>0);
+  sparks.forEach(s=>s.draw());
+  requestAnimationFrame(loop);
+}
+loop();
+
+let ambInterval = setInterval(()=>{ for(let i=0;i<3;i++) sparks.push(new Spark()); }, 220);
+document.addEventListener('mousemove', e=>{ if(Math.random()<.2) sparks.push(new Spark(e.clientX, e.clientY)); });
+
+/* ══ INTRO FLOATS ══ */
+const introEl   = document.getElementById('intro');
+const introMoji = ['💖','💕','🌸','✨','🎀','💗','🫶'];
+let introInterval = setInterval(()=>{
+  const el = document.createElement('div');
+  el.className = 'i-float';
+  el.textContent = introMoji[Math.floor(Math.random()*introMoji.length)];
+  el.style.left  = (10 + Math.random()*80) + 'vw';
+  el.style.bottom = (Math.random()*30) + '%';
+  el.style.fontSize = (12 + Math.random()*14) + 'px';
+  el.style.animationDuration = (2 + Math.random()*2) + 's';
+  introEl.appendChild(el);
+  setTimeout(()=>el.remove(), 4000);
+}, 700);
+
+/* ══ YOUTUBE PLAYER ══
+   Lagu: Sempurna - Andra and the Backbone
+   Video ID: R5vPsl0DhFY (audio YouTube resmi)
+   Start dari detik 53 → bagian "kau begitu sempurna..."
+*/
+let ytPlayer = null;
+let ytReady  = false;
+let ytPlaying = false;
+const SKIP_TO = 53; // detik ke-53
+// Video ID Sempurna - Andra and the Backbone
+const VIDEO_ID = 'R5vPsl0DhFY';
+
+window.onYouTubeIframeAPIReady = function(){
+  ytPlayer = new YT.Player('ytPlayer', {
+    height: '1',
+    width:  '1',
+    videoId: VIDEO_ID,
+    playerVars:{
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      modestbranding: 1,
+      rel: 0,
+      start: SKIP_TO,
+      loop: 1,
+      playlist: VIDEO_ID
+    },
+    events:{
+      onReady: function(e){
+        ytReady = true;
+        e.target.setVolume(60);
+        // Saat loop kembali ke awal, langsung skip ke SKIP_TO
+        e.target.seekTo(SKIP_TO, true);
+      },
+      onStateChange: function(e){
+        // YT.PlayerState.ENDED = 0, PLAYING = 1
+        if(e.data === YT.PlayerState.PLAYING){
+          ytPlaying = true;
+          updateMusicUI(true);
+          // Jika posisi kurang dari SKIP_TO (loop balik awal), skip
+          const t = ytPlayer.getCurrentTime();
+          if(t < SKIP_TO - 2){
+            ytPlayer.seekTo(SKIP_TO, true);
+          }
+        }
+        if(e.data === YT.PlayerState.PAUSED || e.data === YT.PlayerState.ENDED){
+          ytPlaying = false;
+          updateMusicUI(false);
+        }
+      }
+    }
+  });
+};
+
+// Polling: kalau posisi mendekati akhir lagu, loop balik ke SKIP_TO
+setInterval(()=>{
+  if(ytPlayer && ytPlaying && typeof ytPlayer.getCurrentTime === 'function'){
+    const cur = ytPlayer.getCurrentTime();
+    const dur = ytPlayer.getDuration();
+    if(dur && cur >= dur - 4){
+      ytPlayer.seekTo(SKIP_TO, true);
+    }
+    // Juga cek kalau somehow posisi < SKIP_TO
+    if(cur > 0 && cur < SKIP_TO - 2){
+      ytPlayer.seekTo(SKIP_TO, true);
+    }
+  }
+}, 1000);
+
+function playMusic(){
+  if(ytReady && ytPlayer){
+    ytPlayer.seekTo(SKIP_TO, true);
+    ytPlayer.playVideo();
+  }
+}
+
+/* ══ MUSIC BUTTON UI ══ */
+const musicBtn = document.getElementById('musicBtn');
+const noteEl   = musicBtn.querySelector('.note');
+
+function updateMusicUI(playing){
+  if(playing){ noteEl.textContent='🎶'; }
+  else { noteEl.textContent='🎵'; }
+}
+
+musicBtn.addEventListener('click', ()=>{
+  if(!ytPlayer || !ytReady) return;
+  if(ytPlaying){
+    ytPlayer.pauseVideo();
+  } else {
+    ytPlayer.playVideo();
+  }
+});
+
+/* ══ ENTER BUTTON ══ */
+const enterBtn    = document.getElementById('enterBtn');
+const pageContent = document.getElementById('pageContent');
+
+enterBtn.addEventListener('click', ()=>{
+  const r = enterBtn.getBoundingClientRect();
+  for(let i=0;i<50;i++) sparks.push(new Spark(r.left+r.width/2, r.top+r.height/2));
+
+  introEl.style.opacity   = '0';
+  introEl.style.transform = 'scale(1.06)';
+
+  setTimeout(()=>{
+    introEl.style.display = 'none';
+    clearInterval(introInterval);
+    clearInterval(ambInterval);
+
+    // Unlock scroll
+    document.body.classList.add('unlocked');
+    document.body.style.overflow = 'auto';
+
+    pageContent.style.display = 'flex';
+    musicBtn.classList.add('show');
+    startPageHearts();
+
+    // Autoplay musik
+    playMusic();
+  }, 1400);
+});
+
+/* ══ PAGE HEARTS ══ */
+const heartsLayer = document.getElementById('heartsLayer');
+const pageMoji    = ['💖','💕','💗','✨','🌸','🎀','💝','🫶'];
+function startPageHearts(){
+  setInterval(()=>{
+    const h = document.createElement('div');
+    h.className   = 'fheart';
+    h.textContent = pageMoji[Math.floor(Math.random()*pageMoji.length)];
+    h.style.left  = Math.random()*100 + 'vw';
+    h.style.fontSize = (12 + Math.random()*18) + 'px';
+    const dur = 7 + Math.random()*5;
+    h.style.animationDuration = dur + 's';
+    heartsLayer.appendChild(h);
+    setTimeout(()=>h.remove(), dur*1000);
+  }, 700);
+}
+
+/* ══ CONFETTI ══ */
+function confettiBurst(){
+  const items=['💖','✨','🌸','🎀','💕','🎊','💝','🌷'];
+  for(let i=0;i<150;i++){
+    const el = document.createElement('div');
+    el.textContent = items[Math.floor(Math.random()*items.length)];
+    el.style.cssText=`
+      position:fixed;
+      left:${Math.random()*100}vw;
+      top:-30px;
+      font-size:${Math.random()*22+10}px;
+      z-index:99999;
+      pointer-events:none;
+      animation:fall ${3+Math.random()*3}s linear forwards;
+      animation-delay:${Math.random()*1.4}s;
+    `;
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 8000);
+  }
+}
+
+/* ══ TYPEWRITER ══ */
+const loveSection = document.getElementById('loveSection');
+const letterBody  = document.getElementById('letterBody');
+
+const paragraphs = [
+  "Hallo adee,makasii yaa udaa hadir di hidup aku,selama sama adee aku tuuh selaluu merasa bahagiaa,semogaa adee sehat selaluu yaa dan semoga semua urusannyaa di permudah. sekarang adiik sudaa 17 tahuun,tapii masii jadii anak kecilnya aku koo hehe.. i love uuu🫂"
+];
+
+let pIdx = 0, cIdx = 0;
+let currentP = null;
+let cursorEl = null;
+let typed = false;
+
+function typeNextChar(){
+  if(pIdx >= paragraphs.length){
+    if(cursorEl) cursorEl.remove();
+    return;
+  }
+  const para = paragraphs[pIdx];
+  if(cIdx === 0){
+    currentP = document.createElement('p');
+    cursorEl = document.createElement('span');
+    cursorEl.className = 'cursor-blink';
+    currentP.appendChild(cursorEl);
+    letterBody.appendChild(currentP);
+  }
+  if(cIdx < para.length){
+    cursorEl.insertAdjacentText('beforebegin', para[cIdx]);
+    cIdx++;
+    const delay = para[cIdx-1] === ' ' ? 30 : 52;
+    setTimeout(typeNextChar, delay);
+  } else {
+    pIdx++;
+    cIdx = 0;
+    setTimeout(typeNextChar, 380);
+  }
+}
+
+/* ══ GIFT BUTTON ══ */
+const giftBtn        = document.getElementById('giftBtn');
+const gallerySection = document.getElementById('gallerySection');
+const wishesSection  = document.getElementById('wishesSection');
+
+giftBtn.addEventListener('click',()=>{
+  confettiBurst();
+  const r = giftBtn.getBoundingClientRect();
+  for(let i=0;i<80;i++) sparks.push(new Spark(r.left+r.width/2, r.top+r.height/2));
+
+  loveSection.style.display  = 'flex';
+  gallerySection.style.display = 'block';
+  wishesSection.style.display  = 'flex';
+
+  setTimeout(()=>{ loveSection.scrollIntoView({behavior:'smooth', block:'start'}); }, 200);
+
+  if(!typed){ typed=true; setTimeout(typeNextChar, 800); }
+
+  setTimeout(()=>{
+    document.querySelectorAll('.polaroid').forEach((p,i)=>{
+      setTimeout(()=>p.classList.add('show'), i*300);
+    });
+  }, 500);
+
+  setTimeout(()=>{
+    document.querySelectorAll('.wish-card').forEach((c,i)=>{
+      setTimeout(()=>c.classList.add('show'), i*180);
+    });
+  }, 2500);
+
+  giftBtn.style.animation = 'none';
+  giftBtn.textContent = '💖 Thank You! 💖';
+  giftBtn.disabled = true;
+  giftBtn.style.opacity = '.7';
+});
+
+/* ══ DRAG SCROLL GALLERY ══ */
+const galleryScroll = document.getElementById('galleryScroll');
+let isDown=false, startX, scrollLeft;
+
+galleryScroll.addEventListener('mousedown', e=>{
+  isDown=true;
+  startX = e.pageX - galleryScroll.offsetLeft;
+  scrollLeft = galleryScroll.scrollLeft;
+});
+galleryScroll.addEventListener('mouseleave', ()=>isDown=false);
+galleryScroll.addEventListener('mouseup', ()=>isDown=false);
+galleryScroll.addEventListener('mousemove', e=>{
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - galleryScroll.offsetLeft;
+  galleryScroll.scrollLeft = scrollLeft - (x - startX)*1.2;
+});
+
+/* ══ INTERSECTION OBSERVER ══ */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+},{threshold:.15});
+document.querySelectorAll('.polaroid, .wish-card').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
